@@ -2,7 +2,7 @@ const orm = require('../config/orm')
 
 const burger = {
     all: cb => {
-        orm.all(res => {
+        orm.selectAll(res => {
             cb(res)
         })
     },
