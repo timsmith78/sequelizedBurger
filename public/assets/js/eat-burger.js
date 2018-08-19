@@ -7,19 +7,22 @@ $( () => {
         $.ajax("/api/devour", {
             type: "PUT",
             data: updateObj
-        }).then( () => {
+        }).then( result => {
+            console.log('Reload after update')
             location.reload()
         })
     })
 
     $(".create-form").on("submit", evt => {
+        evt.preventDefault()
         let newBurger = {
             burgerName: $("#new-burger").val().trim()
         }
         $.ajax("/api/add", {
             type: "POST",
             data: newBurger
-        }).then( () => {
+        }).then( result => {
+            console.log('Reload after create')
             location.reload()
         })
     })

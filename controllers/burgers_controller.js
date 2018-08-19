@@ -1,25 +1,34 @@
-const express = require('express')
-const burger = require('../models/burger')
 
-const router = express.Router()
+const db = require('../models')
 
-router.get("/", (req, res) => {
-    burger.all(burgerList => {
-        res.render("index", { burgers: burgerList })
+module.exports = app => {
+    app.get("/", (req, res) => {
+        db.Burger.findAll({}).then(result => {
+            res.render("index", { burgers: result } )
+        })
     })
-})
-
-router.post("/api/add", (req, res) => {
-    burger.insertOne(req.body.burgerName, result => {
-        res.end()
+    app.post("/api/add", (req, res) => {
+        db.Burger.create({
+            burger_name: req.body.burgerName,
+            devoured: 0
+        }).then(result => {
+            console.log('api/add callback hit')
+            res.end()
+        })
     })
-})
 
-router.put("/api/devour", (req, res) => {
-    burger.devourOne(req.body.burgerName, result => {
-        res.end()
+    app.put("/api/devour", (req, res) => {
+        db.Burger.update(
+            {
+                devoured: 1
+            },
+            {
+                where: {
+                    burger_name: req.body.burgerName
+                }
+            }).then(result => {
+                res.json(result)
+            })
     })
-})
 
-
-module.exports = router
+}

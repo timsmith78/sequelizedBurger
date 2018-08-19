@@ -1,21 +1,21 @@
-const orm = require('../config/orm')
 
-const burger = {
-    all: cb => {
-        orm.selectAll(res => {
-            cb(res)
-        })
-    },
-    insertOne: (newBurger, cb) => {
-        orm.insertOne(newBurger, res => {
-            cb(res)
-        })
-    },
-    devourOne: (burger, cb) => {
-        orm.updateOne(burger, res => {
-            cb(res)
-        })
-    }
+module.exports = (sequelize, DataTypes) => {
+    var Burger = sequelize.define("Burger", {
+        burger_name: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                len: [1]
+            }
+        },
+        devoured: {
+            type: DataTypes.INTEGER,
+            defaultValue: 0,
+            validate: {
+                is: /0|1/
+            }
+        }
+    })
+    return Burger
 }
 
-module.exports = burger
