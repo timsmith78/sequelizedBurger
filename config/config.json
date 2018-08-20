@@ -14,10 +14,8 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
     "use_env_variable": "JAWSDB_URL",
-    "database": "sequelizeburger_production",
+    "database": "nk3djki60b5awxix.burgers",
     "host": "127.0.0.1",
     "dialect": "mysql"
   }
